@@ -13,7 +13,6 @@ A web application built for users to create, track, and manage their personal ha
 - **Habit Management:** Users can create, read, and delete their personal habits.
 - **Progress Tracking:** Daily/weekly check-ins to mark habits as complete. Streak counts are automatically calculated and updated on the backend.
 - **Habit Categories:** Users can assign categories to their habits (e.g., "Health", "Work") and filter their dashboard view. (Bonus Feature)
-- **Welcome Emails:** New users automatically receive a welcome email upon registration using Nodemailer. (Bonus Feature)
 - **Social Accountability:** Users can search for and follow other users.
 - **Friends' Activity Feed:** A live feed showing the recent accomplishments of friends the user is following.
 
