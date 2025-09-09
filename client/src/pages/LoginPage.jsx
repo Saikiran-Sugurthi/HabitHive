@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -12,18 +13,22 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await login({ email, password });
+      toast.success('Logged in successfully!');
       navigate('/');
     } catch (error) {
+      const message = error.response?.data?.message || 'Login failed. Please try again.';
+      toast.error(message);
       console.error('Login failed', error);
-      // You can add user-facing error handling here
     }
   };
 
+  // ... rest of the component is the same ...
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300 flex items-center justify-center">
       <div className="bg-slate-800 w-full max-w-md p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-white text-center mb-6">Welcome Back</h1>
         <form onSubmit={handleSubmit}>
+          {/* Form inputs are the same */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
             <input

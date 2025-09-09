@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -12,6 +13,12 @@ import SearchPage from './pages/SearchPage';
 const AppLayout = () => {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300">
+      <Toaster position="top-center" toastOptions={{
+        style: {
+          background: '#334155',
+          color: '#fff',
+        },
+      }} />
       <Navbar />
       <main>
         <Outlet /> 

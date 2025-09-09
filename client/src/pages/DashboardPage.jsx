@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import toast from 'react-hot-toast';
 import HabitCard from '../components/HabitCard';
 import CreateHabitForm from '../components/CreateHabitForm';
 import { getHabits, createHabit, checkinHabit } from '../api/habitsApi';
+
 
 const DashboardPage = () => {
   const [habits, setHabits] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
-
+  
+  // ... categories and useEffect logic is the same ...
   const categories = useMemo(() => {
     const uniqueCategories = new Set(habits.map(h => h.category));
     return ['All', ...uniqueCategories];
@@ -25,12 +28,16 @@ const DashboardPage = () => {
     fetchHabits();
   }, [activeCategory]);
 
+
   const handleAddHabit = async (habitData) => {
     try {
       await createHabit(habitData);
+      toast.success('Habit created!');
       setActiveCategory(habitData.category || 'All');
       setIsFormVisible(false);
     } catch (error) {
+      const message = error.response?.data?.message || 'Failed to create habit.';
+      toast.error(message);
       console.error('Failed to create habit', error);
     }
   };
@@ -38,13 +45,17 @@ const DashboardPage = () => {
   const handleCheckIn = async (habitId) => {
     try {
       await checkinHabit(habitId);
-     const updatedHabits = habits.map(h => h._id === habitId ? { ...h, isCompletedToday: true, currentStreak: h.currentStreak + 1 } : h);
+      toast.success('Great job!');
+      const updatedHabits = habits.map(h => h._id === habitId ? { ...h, isCompletedToday: true, currentStreak: h.currentStreak + 1 } : h);
       setHabits(updatedHabits);
     } catch (error) {
+      const message = error.response?.data?.message || 'Check-in failed.';
+      toast.error(message);
       console.error('Failed to check in habit', error);
     }
   };
 
+  // ... the rest of the return(...) JSX is the same ...
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex justify-between items-center mb-6">
