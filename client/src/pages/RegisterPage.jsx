@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import toast from 'react-hot-toast';
+
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -13,8 +15,12 @@ const RegisterPage = () => {
     e.preventDefault();
     try {
       await register({ username, email, password });
+            toast.success('Registered successfully!');
+      
       navigate('/');
     } catch (error) {
+       const message = error.response?.data?.message || 'Registration failed. Please try again.';
+      toast.error(message);
       console.error('Registration failed', error);
     }
   };

@@ -10,7 +10,6 @@ const DashboardPage = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
   
-  // ... categories and useEffect logic is the same ...
   const categories = useMemo(() => {
     const uniqueCategories = new Set(habits.map(h => h.category));
     return ['All', ...uniqueCategories];
@@ -55,7 +54,7 @@ const DashboardPage = () => {
     }
   };
 
-  // ... the rest of the return(...) JSX is the same ...
+ 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex justify-between items-center mb-6">
