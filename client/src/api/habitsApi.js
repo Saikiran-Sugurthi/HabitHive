@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5001/api/habits';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_URL = `${API_BASE_URL}/api/habits`;
 
 const getConfig = () => {
   const userString = localStorage.getItem('user');
-  if (!userString) {
-    return {};
-  }
+  if (!userString) return {};
   const user = JSON.parse(userString);
   return {
     headers: {

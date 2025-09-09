@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -22,14 +23,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (formData) => {
-    const response = await axios.post('http://localhost:5001/api/auth/login', formData);
+    const response = await axios.post(`${API_BASE_URL}/api/auth/login`, formData);
     const data = response.data;
     localStorage.setItem('user', JSON.stringify(data));
     setUser(data);
   };
   
   const register = async (formData) => {
-    const response = await axios.post('http://localhost:5001/api/auth/register', formData);
+    const response = await axios.post(`${API_BASE_URL}/api/auth/register`, formData);
     const data = response.data;
     localStorage.setItem('user', JSON.stringify(data));
     setUser(data);
